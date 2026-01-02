@@ -2,40 +2,48 @@ import streamlit as st
 import re
 import zipfile
 import io
+import base64
 
 # ================== PAGE CONFIG ==================
 st.set_page_config(page_title="Scene / Prompt Splitter", layout="centered")
 
-# ================== BACKGROUND IMAGE (URL) ==================
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-image:
-            linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-            url("https://i.redd.it/lpq6o2autx761.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
+# ================== SET BACKGROUND FROM LOCAL ==================
+def set_bg_from_local(image_path):
+    with open(image_path, "rb") as img:
+        encoded = base64.b64encode(img.read()).decode()
 
-    h1, h2, h3, p, label {
-        color: #ffffff !important;
-    }
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image:
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
 
-    .stButton button, .stDownloadButton button {
-        background: linear-gradient(90deg, #ff8a00, #ff3d00);
-        color: white;
-        border-radius: 12px;
-        font-weight: 600;
-        padding: 0.6em 1.2em;
-        border: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        h1, h2, h3, p, label {{
+            color: #ffffff !important;
+        }}
+
+        .stButton button, .stDownloadButton button {{
+            background: linear-gradient(90deg, #ff8a00, #ff3d00);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.6em 1.2em;
+            border: none;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# ======= LOAD BACKGROUND =======
+set_bg_from_local("assets/background.jpg")
 
 # ================== UI ==================
 st.title("Scene / Prompt Splitter")
