@@ -43,7 +43,7 @@ def set_bg_from_local(image_path):
     )
 
 # ======= LOAD BACKGROUND =======
-set_bg_from_local("assets/background.jpg")
+set_bg_from_local("scene-splitter/93177f6eb9834c29794a9b63b265f9b9.jpg")
 
 # ================== UI ==================
 st.title("Scene / Prompt Splitter")
@@ -80,3 +80,4 @@ if uploaded_file:
         file_name="scenes.zip",
         mime="application/zip"
     )
+
